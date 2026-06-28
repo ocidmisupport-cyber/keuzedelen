@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keuzedeel K0022 met videoachtergrond</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050914;font-family:Arial,Helvetica,sans-serif}
+  .iframe-stage{position:relative;width:100vw;height:100vh;min-width:1000px;min-height:500px;overflow:hidden;background:#050914}
+  .bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .video-shade{position:absolute;inset:0;z-index:1;background:radial-gradient(circle at center, rgba(0,0,0,.25), rgba(0,0,0,.55));pointer-events:none}
+  .animatie-frame{position:absolute;left:50%;top:50%;width:1000px;height:500px;transform:translate(-50%,-50%);border:0;z-index:2;background:transparent;overflow:hidden;border-radius:24px}
+</style>
+</head>
+<body>
+  <main class="iframe-stage">
+    <video class="bg-video" autoplay muted loop playsinline preload="auto">
+      <source src="introvideo.mp4" type="video/mp4">
+    </video>
+    <div class="video-shade"></div>
+    <iframe class="animatie-frame" src="keuzedeel_animatie.html" scrolling="no" allowtransparency="true"></iframe>
+  </main>
+</body>
+</html>
