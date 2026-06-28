@@ -29,7 +29,7 @@ body{display:grid;place-items:center;min-height:100vh}
 .detail-in{opacity:0;transform:translate(-50%,-50%) scale(.78);animation:detailIn .42s ease forwards}
 @keyframes detailIn{from{opacity:0;transform:translate(-50%,-50%) scale(.78)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 .node.center:hover{transform:translate(-50%,-50%)}
-.home-item{width:160px;height:82px}
+.home-item{width:188px;height:96px}
 .center{width:260px;height:128px;justify-content:center;text-align:center;gap:14px;padding:16px 22px;z-index:8}
 .link-item{width:104px;height:50px;justify-content:center;text-align:center;padding:8px 8px;line-height:1.08;z-index:6}
 .glass{background:linear-gradient(135deg, rgba(255,255,255,.19), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18)}
@@ -38,7 +38,7 @@ body{display:grid;place-items:center;min-height:100vh}
 .icon-wrap svg{width:24px;height:24px;display:block}
 .center .icon-wrap svg{width:32px;height:32px}
 .label{display:flex;flex-direction:column;min-width:0}
-.label strong{display:block;font-size:18px;line-height:1.1}
+.label strong{display:block;font-size:17px;line-height:1.08}
 .label span{display:block;font-size:13px;color:#d6dff2;margin-top:4px}
 .center .label strong{font-size:28px}
 .center .label span{font-size:14px;margin-top:6px}
@@ -115,10 +115,10 @@ function renderHome(){
   clearStage();
   homeBtn.hidden=true;
   const cx=500, cy=215;
-  addOrbit(cx,cy,362,148);
+  addOrbit(cx,cy,372,154);
   makeNode('div','center',`<div class="label"><strong>Keuzedeel K0022</strong><span>Digitale vaardigheden</span></div>`,cx,cy,'justify-content:center; text-align:center; width:280px; height:132px; background:linear-gradient(135deg, rgba(17,123,211,.45), rgba(91,95,199,.35));');
   categories.forEach((cat,i)=>{
-    const p=ellipsePoint(cx,cy,362,148,i,categories.length);
+    const p=ellipsePoint(cx,cy,372,154,i,categories.length);
     const item=makeNode('button','home-item',appHtml(cat),p.x,p.y,bgStyle(cat.color));
     item.type='button';
     item.addEventListener('click',()=>animateToDetail(cat, item));
