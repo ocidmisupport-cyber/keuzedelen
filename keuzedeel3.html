@@ -15,11 +15,15 @@
 </head>
 <body>
   <main class="iframe-stage">
-    <video class="bg-video" autoplay muted loop playsinline preload="auto">
-      <source src="introvideo.mp4" type="video/mp4">
-    </video>
+    <video id="bgVideo" class="bg-video" autoplay muted loop playsinline>
+  <source src="introvideo.mp4" type="video/mp4">
+</video>
     <div class="video-shade"></div>
     <iframe class="animatie-frame" src="keuzedeel4animatie.html" scrolling="no" allowtransparency="true"></iframe>
   </main>
+ <script>
+  const video = document.getElementById("bgVideo");
+  video.playbackRate = 0.5;
+</script>
 </body>
 </html>
