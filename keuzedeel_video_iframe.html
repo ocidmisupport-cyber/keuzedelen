@@ -1,68 +1,168 @@
 <!doctype html>
 <html lang="nl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Keuzedeel K0022 Digitale vaardigheden - video iframe</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Keuzedeel K0022 Digitale vaardigheden</title>
 <style>
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #000;
-    font-family: Arial, Helvetica, sans-serif;
-  }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#000;font-family:Arial,Helvetica,sans-serif}
+body{display:grid;place-items:center;min-height:100vh;overflow:hidden}
+.frame{width:1000px;height:500px;position:relative;overflow:hidden;border-radius:24px;color:#fff;background:rgba(3,8,18,.18);box-shadow:0 30px 90px rgba(0,0,0,.45)}
 
-  .iframe-stage {
-    width: 1000px;
-    height: 500px;
-    position: relative;
-    overflow: hidden;
-    background: #000;
-  }
-
-  .iframe-stage video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-    opacity: .58;
-    filter: saturate(1.15) contrast(1.05) brightness(.78);
-  }
-
-  .video-shade {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    background:
-      radial-gradient(circle at center, rgba(0,0,0,.08), rgba(0,0,0,.48)),
-      linear-gradient(135deg, rgba(9,16,35,.45), rgba(12,18,38,.22));
-    pointer-events: none;
-  }
-
-  .content-frame {
-    position: absolute;
-    inset: 0;
-    width: 1000px;
-    height: 500px;
-    border: 0;
-    z-index: 3;
-    background: transparent;
-  }
+.bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:1;filter:saturate(1.15) contrast(1.05) brightness(.9)}
+.video-shade{position:absolute;inset:0;z-index:1;background:radial-gradient(circle at center, rgba(0,0,0,.05), rgba(0,0,0,.24));pointer-events:none}
+.grid{z-index:2}
+.stage{z-index:5}
+.grid{position:absolute;inset:-12%;opacity:.13;background-image:linear-gradient(rgba(255,255,255,.65) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.65) 1px, transparent 1px);background-size:44px 44px;transform:rotate(-7deg);pointer-events:none}
+.topbar{position:absolute;left:0;top:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:16px 20px 10px;z-index:20}
+.title h1{margin:0;font-size:24px;line-height:1.05;letter-spacing:-.02em}
+.title p{display:none}
+.btn{border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:10px 16px;font-size:14px;cursor:pointer;backdrop-filter:blur(6px)}
+.btn:hover{background:rgba(255,255,255,.18)}
+.stage{position:absolute;inset:64px 0 0 0}
+.orbit{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:1px dashed rgba(255,255,255,.16);border-radius:50%;pointer-events:none}
+.node{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:999px;display:flex;align-items:center;justify-content:flex-start;gap:12px;padding:12px 18px;color:#fff;text-decoration:none;box-shadow:0 18px 36px rgba(0,0,0,.35);backdrop-filter:blur(10px);transition:transform .2s ease,left .42s ease,top .42s ease,opacity .25s ease;animation:pop .34s both}
+.node:hover{transform:translate(-50%,-50%) scale(1.04)}
+.fade-away{opacity:0!important;transform:translate(-50%,-50%) scale(.75)!important;pointer-events:none!important}
+.orbit.fade-away{opacity:0!important;transform:translate(-50%,-50%) scale(.92)!important}
+.move-center{left:500px!important;top:215px!important;width:270px!important;height:132px!important;z-index:12!important;justify-content:center!important;text-align:center!important;pointer-events:none!important}
+.move-center .icon-wrap{width:54px!important;height:54px!important;border-radius:16px!important}
+.move-center .icon-wrap svg{width:32px!important;height:32px!important}
+.move-center .label strong{font-size:28px!important}
+.move-center .label span{font-size:14px!important;margin-top:6px!important}
+.detail-in{opacity:0;transform:translate(-50%,-50%) scale(.78);animation:detailIn .42s ease forwards}
+@keyframes detailIn{from{opacity:0;transform:translate(-50%,-50%) scale(.78)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+.node.center:hover{transform:translate(-50%,-50%)}
+.home-item{width:188px;height:96px}
+.center{width:260px;height:128px;justify-content:center;text-align:center;gap:14px;padding:16px 22px;z-index:8}
+.link-item{width:104px;height:50px;justify-content:center;text-align:center;padding:8px 8px;line-height:1.08;z-index:6}
+.glass{background:linear-gradient(135deg, rgba(255,255,255,.19), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18)}
+.icon-wrap{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:0 0 auto;background:rgba(255,255,255,.17);box-shadow:inset 0 1px 0 rgba(255,255,255,.15)}
+.center .icon-wrap{width:54px;height:54px;border-radius:16px}
+.icon-wrap svg{width:24px;height:24px;display:block}
+.center .icon-wrap svg{width:32px;height:32px}
+.label{display:flex;flex-direction:column;min-width:0}
+.label strong{display:block;font-size:17px;line-height:1.08}
+.label span{display:block;font-size:13px;color:#d6dff2;margin-top:4px}
+.center .label strong{font-size:28px}
+.center .label span{font-size:14px;margin-top:6px}
+.link-text{font-size:11.5px;line-height:1.08;font-weight:700;display:flex;align-items:center;justify-content:center;text-align:center;min-height:100%;word-break:break-word}
+.hint{position:absolute;left:20px;bottom:14px;font-size:12px;color:#b9c4de;z-index:20}
+@keyframes pop{from{opacity:0;transform:translate(-50%,-50%) scale(.3)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 </style>
 </head>
 <body>
-  <div class="iframe-stage">
-    <video autoplay muted loop playsinline preload="auto">
-      <source src="introvideo.mp4" type="video/mp4">
-    </video>
-    <div class="video-shade"></div>
-    <iframe class="content-frame" src="keuzedeel_content.html" title="Keuzedeel K0022 Digitale vaardigheden"></iframe>
+<div class="frame">
+<video class="bg-video" autoplay muted loop playsinline preload="auto"><source src="introvideo.mp4" type="video/mp4"></video>
+<div class="video-shade"></div>
+<div class="grid"></div>
+<div class="topbar">
+  <div class="title">
+    <h1>Keuzedeel K0022 Digitale vaardigheden</h1>
+    
   </div>
+  <button class="btn" id="homeBtn" hidden>← Terug</button>
+</div>
+<div class="stage" id="stage"></div>
+</div>
+<script>
+const categories = [{"name": "Word", "color": "#185abd", "count": 12, "links": [{"title": "Document maken", "url": "https://support.microsoft.com/nl-nl/office/een-document-maken-in-word-aafc163a-3a06-45a9-b451-cb7250dcbaa1?wt.mc_id=otc_word"}, {"title": "Wat is Word?", "url": "https://support.microsoft.com/nl-nl/office/wat-is-word-aee9c7ff-f9c5-415f-80dc-103ad5e344d7?wt.mc_id=otc_word"}, {"title": "Tekst toevoegen en bewerken", "url": "https://support.microsoft.com/nl-nl/office/tekst-toevoegen-en-bewerken-ed1e3147-a846-41ca-8087-49e324cb50bd?wt.mc_id=otc_word"}, {"title": "Tekst opmaken", "url": "https://support.microsoft.com/nl-nl/office/tekst-toevoegen-en-opmaken-2e76a31b-a6d6-4b4e-95c2-fb780e3ac8d3?wt.mc_id=otc_word"}, {"title": "Marges wijzigen", "url": "https://support.microsoft.com/nl-nl/office/marges-wijzigen-da21a474-99d8-4e54-b12d-a8a14ea7ce02?wt.mc_id=otc_word"}, {"title": "Tabel invoegen", "url": "https://support.microsoft.com/nl-nl/office/een-tabel-invoegen-a138f745-73ef-4879-b99a-2f3d38be612a?wt.mc_id=otc_word"}, {"title": "Document opslaan", "url": "https://support.microsoft.com/nl-nl/office/een-document-opslaan-b7f55d8c-d714-4892-8fde-853a82419027?wt.mc_id=otc_word"}, {"title": "Document delen", "url": "https://support.microsoft.com/nl-nl/office/een-document-delen-d39f3cd8-0aa0-412f-9a35-1abba926d354?wt.mc_id=otc_word"}, {"title": "Formule of vergelijking schrijven", "url": "https://support.microsoft.com/nl-nl/office/een-vergelijking-of-formule-schrijven-1d01cabc-ceb1-458d-bc70-7f9737722702?wt.mc_id=otc_word"}, {"title": "Schermlezer gebruiken", "url": "https://support.microsoft.com/nl-nl/office/inleiding-tot-het-gebruik-van-een-schermlezer-in-word-303eb71a-6bd8-474c-ba06-923e93347224?wt.mc_id=otc_word"}, {"title": "Word-sjabloon", "url": "https://omextemplates.content.office.net/support/templates/en-us/tf10002117.docx?wt.mc_id=otc_word"}, {"title": "Documentsjabloon", "url": "https://omextemplates.content.office.net/support/templates/en-us/tf16412217.dotx?wt.mc_id=otc_word"}]}, {"name": "Excel", "color": "#107c41", "count": 16, "links": [{"title": "Werkmap maken", "url": "https://support.microsoft.com/nl-nl/office/een-werkmap-maken-in-excel-94b00f50-5896-479c-b0c5-ff74603b35a3?wt.mc_id=otc_excel"}, {"title": "Nieuwe werkmap", "url": "https://support.microsoft.com/nl-nl/office/een-nieuwe-werkmap-maken-ae99f19b-cecb-4aa0-92c8-7126d6212a83?wt.mc_id=otc_excel"}, {"title": "Rijen en kolommen", "url": "https://support.microsoft.com/nl-nl/office/rijen-en-kolommen-invoegen-of-verwijderen-6f40e6e4-85af-45e0-b39d-65dd504a3246?wt.mc_id=otc_excel"}, {"title": "Cellen verplaatsen of kopiëren", "url": "https://support.microsoft.com/nl-nl/office/cellen-en-celinhoud-verplaatsen-of-kopi%C3%ABren-803d65eb-6a3e-4534-8c6f-ff12d1c4139e?wt.mc_id=otc_excel"}, {"title": "Getalnotaties", "url": "https://support.microsoft.com/nl-nl/office/beschikbare-getalnotaties-in-excel-0afe8f52-97db-41f1-b972-4b46e9f1e8d2?wt.mc_id=otc_excel"}, {"title": "Formules gebruiken", "url": "https://support.microsoft.com/nl-nl/office/overzicht-van-formules-in-excel-ecfdc708-9162-49e8-b993-c311f47ca173?wt.mc_id=otc_excel"}, {"title": "Tabel maken en opmaken", "url": "https://support.microsoft.com/nl-nl/office/tabellen-maken-en-opmaken-e81aa349-b006-4f8a-9806-5af9df0ac664?wt.mc_id=otc_excel"}, {"title": "Grafiek maken", "url": "https://support.microsoft.com/nl-nl/office/stapsgewijze-instructies-voor-het-maken-van-een-grafiek-0baf399e-dd61-4e18-8a73-b3fd5d5680c2?wt.mc_id=otc_excel"}, {"title": "Draaitabel maken", "url": "https://support.microsoft.com/nl-nl/office/een-draaitabel-maken-om-werkbladgegevens-te-analyseren-a9a84538-bfe9-40a9-a8e9-f99134456576?wt.mc_id=otc_excel"}, {"title": "Werkmap delen", "url": "https://support.microsoft.com/nl-nl/office/uw-excel-werkmap-delen-met-anderen-8d8a52bb-03c3-4933-ab6c-330aabf1e589?wt.mc_id=otc_excel"}, {"title": "Gegevenstype Organisatie", "url": "https://support.microsoft.com/nl-nl/office/tekst-converteren-naar-een-gegevenstype-organisatie-cd8938ce-f963-444d-b82a-7140848241e9?wt.mc_id=otc_excel"}, {"title": "Gegevens vanaf het web importeren", "url": "https://support.microsoft.com/nl-nl/office/gegevens-importeren-vanaf-het-web-b13eed81-33fe-410d-9247-1747269c28e4?wt.mc_id=otc_excel"}, {"title": "Excel-sjabloon A", "url": "https://omextemplates.content.office.net/support/templates/en-us/tf10000137.xltx"}, {"title": "Excel-sjabloon B", "url": "https://omextemplates.content.office.net/support/templates/en-us/tf16400656.xltx"}, {"title": "Excel-sjabloon C", "url": "https://omextemplates.content.office.net/support/templates/en-us/tf16400647.xltx"}, {"title": "Excel-sjabloon D", "url": "https://omextemplates.content.office.net/support/templates/en-us/tf16410255.xltx"}]}, {"name": "PowerPoint", "color": "#d24726", "count": 11, "links": [{"title": "Presentatie maken", "url": "https://support.microsoft.com/nl-nl/office/een-presentatie-maken-in-powerpoint-422250f8-5721-4cea-92cc-202fa7b89617?wt.mc_id=otc_powerpoint"}, {"title": "Wat is PowerPoint?", "url": "https://support.microsoft.com/nl-nl/office/wat-is-powerpoint-5f9cc860-d199-4d85-ad1b-4b74018acf5b?wt.mc_id=otc_powerpoint"}, {"title": "Diamodel gebruiken", "url": "https://support.microsoft.com/nl-nl/office/wat-is-een-diamodel-b9abb2a0-7aef-4257-a14e-4329c904da54?wt.mc_id=otc_powerpoint"}, {"title": "WordArt invoegen", "url": "https://support.microsoft.com/nl-nl/office/wordart-invoegen-c5070583-1ebe-4dc4-a41f-5e3729adce54?wt.mc_id=otc_powerpoint"}, {"title": "Afbeelding invoegen", "url": "https://support.microsoft.com/nl-nl/office/een-afbeelding-in-powerpoint-invoegen-5f7368d2-ee94-4b94-a6f2-a663646a07e1?wt.mc_id=otc_powerpoint"}, {"title": "Presentatorweergave", "url": "https://support.microsoft.com/nl-nl/office/de-presentatie-starten-en-uw-notities-zien-in-de-weergave-voor-presentator-4de90e28-487e-435c-9401-eb49a3801257?wt.mc_id=otc_powerpoint"}, {"title": "Diaovergangen instellen", "url": "https://support.microsoft.com/nl-nl/office/diaovergangen-instellen-3f8244bf-f893-4efd-a7eb-3a4845c9c971?wt.mc_id=otc_powerpoint"}, {"title": "Opmerkingen gebruiken", "url": "https://support.microsoft.com/nl-nl/office/opmerkingen-wijzigen-verbergen-verwijderen-of-toevoegen-aan-een-presentatie-a8f071fa-6e5d-4c37-a025-1cf48a76eb38?wt.mc_id=otc_powerpoint"}, {"title": "PowerPoint-sjabloon A", "url": "https://omextemplates.content.office.net/support/templates/en-us/tf10001108.potx"}, {"title": "PowerPoint-sjabloon B", "url": "https://omextemplates.content.office.net/support/templates/en-us/tf16411177.potx"}, {"title": "PowerPoint-sjabloon C", "url": "https://omextemplates.content.office.net/support/templates/en-us/tf16411222.potx"}]}, {"name": "Outlook", "color": "#0a64c9", "count": 20, "links": [{"title": "Windows: Account toevoegen", "url": "https://support.microsoft.com/nl-nl/office/een-e-mailaccount-toevoegen-aan-outlook-e9da47c4-9b89-4b49-b945-a204aeea6726?wt.mc_id=otc_outlook"}, {"title": "Windows: Wat is Outlook?", "url": "https://support.microsoft.com/nl-nl/office/wat-is-outlook-10f1fa35-f33a-4cb7-838c-a7f3e6228b20?wt.mc_id=otc_outlook"}, {"title": "Windows: Welkom bij e-mail", "url": "https://support.microsoft.com/nl-nl/office/welkom-bij-uw-e-mail-c6c261e3-d50a-43a6-816f-35fe1e53acc6?wt.mc_id=otc_outlook"}, {"title": "Windows: Automatisch beantwoorden", "url": "https://support.microsoft.com/nl-nl/office/automatisch-beantwoorden-niet-aanwezig-instellen-cc0e480f-973e-4412-a27b-8a52108d6d51?wt.mc_id=otc_outlook"}, {"title": "Windows: Categorieën en vlaggen", "url": "https://support.microsoft.com/nl-nl/office/categorie%C3%ABn-vlaggen-herinneringen-en-kleuren-instellen-a894348d-b308-4185-840f-aff63063d076?wt.mc_id=otc_outlook"}, {"title": "Windows: Contact toevoegen", "url": "https://support.microsoft.com/nl-nl/office/een-contactpersoon-toevoegen-in-outlook-1ef8f35b-04be-4bd0-ac9c-6d6a146887ce?wt.mc_id=otc_outlook"}, {"title": "Windows: Agenda gebruiken", "url": "https://support.microsoft.com/nl-nl/office/welkom-bij-jouw-outlook-agenda-6fb9225d-9f9d-456d-8c81-8437bfcd3ebf?wt.mc_id=otc_outlook"}, {"title": "Mac: Account toevoegen", "url": "https://support.microsoft.com/nl-nl/office/een-account-outlook-com-of-microsoft-365-account-toevoegen-in-outlook-voor-mac-37cf645f-0f81-4e88-b5e1-bfe4b20b9b00?wt.mc_id=otc_outlook"}, {"title": "Mac: Handtekening maken", "url": "https://support.microsoft.com/nl-nl/office/een-e-mailhandtekening-in-outlook-voor-mac-maken-637c3b77-3d2a-4610-9cea-e3ad622aa54e?wt.mc_id=otc_outlook"}, {"title": "Mac: Welkom bij postvak IN", "url": "https://support.microsoft.com/nl-nl/office/welkom-bij-uw-postvak-in-op-een-mac-2eeab06a-9231-401a-90e7-45fd9f754ac5?wt.mc_id=otc_outlook"}, {"title": "Mac: Vergadering plannen", "url": "https://support.microsoft.com/nl-nl/office/een-vergadering-of-afspraak-plannen-in-outlook-voor-mac-a188cde7-103b-45a7-8a68-a40e9f275731?wt.mc_id=otc_outlook"}, {"title": "Mac: Postvak organiseren", "url": "https://support.microsoft.com/nl-nl/office/video-uw-postvak-in-organiseren-op-een-mac-ac42823b-98ac-4ed1-9576-97fa51c3255b?wt.mc_id=otc_outlook"}, {"title": "Mac: Contact toevoegen", "url": "https://support.microsoft.com/nl-nl/office/video-een-contactpersoon-toevoegen-in-outlook-voor-mac-3c32d9be-4bea-4409-b0b4-1b8be17acfa0?wt.mc_id=otc_outlook"}, {"title": "Mac: Agenda gebruiken", "url": "https://support.microsoft.com/nl-nl/office/welkom-bij-uw-outlook-agenda-op-een-mac-2acd9147-c9eb-497e-a2b6-905284df939d?wt.mc_id=otc_outlook"}, {"title": "Mobiel: Berichten afspelen", "url": "https://support.microsoft.com/nl-nl/office/mijn-e-mailberichten-afspelen-6ed44879-4f4d-4be5-82cf-a98438dc30aa"}, {"title": "Mobiel: Plannen", "url": "https://support.microsoft.com/nl-nl/office/eenvoudig-plannen-in-outlook-mobile-11c5bee5-d78a-4a2b-80c2-2b386ddb4470?wt.mc_id=otc_outlook"}, {"title": "Mobiel: Zoeken", "url": "https://support.microsoft.com/nl-nl/office/eenvoudig-zoeken-in-outlook-mobile-07df353b-e866-4c49-9d7c-dbbdf00a9223?wt.mc_id=otc_outlook"}, {"title": "Mobiel: Contactpersonen", "url": "https://support.microsoft.com/nl-nl/office/meer-informatie-over-contactpersonen-in-outlook-mobile-72518d01-9739-435a-8722-0da211a885b1?wt.mc_id=otc_outlook"}, {"title": "Web: Kennismaken", "url": "https://support.microsoft.com/nl-nl/office/kennismaken-met-de-webversie-van-outlook-3f1a229b-0d60-438f-b515-dd7a28026bc1"}, {"title": "Web: Meer over Outlook op het web", "url": "https://support.microsoft.com/nl-nl/office/meer-informatie-over-de-webversie-van-outlook-adbacbab-fe59-4259-a550-6cb7f85f19ec"}]}, {"name": "Teams", "color": "#5b5fc7", "count": 16, "links": [{"title": "Bericht maken en opmaken", "url": "https://support.microsoft.com/nl-nl/office/een-bericht-maken-en-opmaken-e66777da-636b-49eb-9408-b0d88b212885?wt.mc_id=otc_microsoft_teams"}, {"title": "Wat is Microsoft Teams?", "url": "https://support.microsoft.com/nl-nl/office/video-wat-is-microsoft-teams-422bf3aa-9ae8-46f1-83a2-e65720e1a34d?wt.mc_id=otc_microsoft_teams"}, {"title": "Aan de slag met Teams", "url": "https://support.microsoft.com/nl-nl/office/aan-de-slag-met-microsoft-teams-b98d533f-118e-4bae-bf44-3df2470c2b12?wt.mc_id=otc_microsoft_teams"}, {"title": "Team maken met sjablonen", "url": "https://support.microsoft.com/nl-nl/office/een-team-maken-met-teamsjablonen-702a2977-e662-4038-bef5-bdf8ee47b17b?wt.mc_id=otc_microsoft_teams"}, {"title": "Teams en kanalen", "url": "https://support.microsoft.com/nl-nl/office/overzicht-van-teams-en-kanalen-c3d63c10-77d5-4204-a566-53ddcf723b46?wt.mc_id=otc_microsoft_teams"}, {"title": "Chats starten en vastmaken", "url": "https://support.microsoft.com/nl-nl/office/chats-starten-en-vastmaken-a864b052-5e4b-4ccf-b046-2e26f40e21b5?wt.mc_id=otc_microsoft_teams"}, {"title": "Deelnemen aan vergadering", "url": "https://support.microsoft.com/nl-nl/office/deelnemen-aan-een-teams-vergadering-078e9868-f1aa-4414-8bb9-ee88e9236ee4"}, {"title": "Livegebeurtenis plannen", "url": "https://support.microsoft.com/nl-nl/office/een-livegebeurtenis-plannen-en-inroosteren-f92363a0-6d98-46d2-bdd9-f2248075e502"}, {"title": "Bestanden uploaden en delen", "url": "https://support.microsoft.com/nl-nl/office/bestanden-uploaden-en-delen-57b669db-678e-424e-b0a0-15d19215cb12"}, {"title": "Apps vinden en gebruiken", "url": "https://support.microsoft.com/nl-nl/office/apps-vinden-en-gebruiken-6e22a734-c002-4da0-ba63-681f155b142d?wt.mc_id=otc_microsoft_teams"}, {"title": "Activiteitsfeed filteren", "url": "https://support.microsoft.com/nl-nl/office/uw-activiteitsfeed-filteren-02b9ece4-6086-4daa-b4c0-627beeacbf08?wt.mc_id=otc_microsoft_teams"}, {"title": "Snelle chatsessie starten", "url": "https://support.microsoft.com/nl-nl/office/snel-een-chatsessie-starten-9c7b1258-28f0-434a-a341-569ea0b36f05"}, {"title": "Bookings", "url": "https://support.microsoft.com/nl-nl/office/wat-is-bookings-42d4e852-8e99-4d8f-9b70-d7fc93973cb5"}, {"title": "Goedkeuringen", "url": "https://support.microsoft.com/nl-nl/office/wat-zijn-goedkeuringen-a9a01c95-e0bf-4d20-9ada-f7be3fc283d3?wt.mc_id=otc_microsoft_teams"}, {"title": "Ploegendienst", "url": "https://support.microsoft.com/nl-nl/office/wat-is-een-ploegendienst-f8efe6e4-ddb3-4d23-b81b-bb812296b821"}, {"title": "Virtuele afspraken", "url": "https://support.microsoft.com/nl-nl/office/wat-is-virtuele-afspraken-22df0079-e6d9-4225-bc65-22747fb2cb5f"}]}, {"name": "OneDrive", "color": "#117bd3", "count": 8, "links": [{"title": "Werk/school: Bestanden uploaden", "url": "https://support.microsoft.com/nl-nl/office/bestanden-en-mappen-uploaden-naar-onedrive-a1397e56-61ec-4ed2-9dac-727bf8ac3357"}, {"title": "Werk/school: Wat is OneDrive?", "url": "https://support.microsoft.com/nl-nl/office/bestanden-en-mappen-uploaden-in-onedrive-werk-of-school-5bd927ad-d186-495c-93e8-7ca116fe7b83?wt.mc_id=otc_onedrive"}, {"title": "Werk/school: Uploaden in OneDrive", "url": "https://support.microsoft.com/nl-nl/office/wat-is-onedrive-werk-of-school-10f5c3fd-b0f6-40e2-9059-04735ffe01b7?wt.mc_id=otc_onedrive"}, {"title": "Werk/school: Bestanden delen", "url": "https://support.microsoft.com/nl-nl/office/bestanden-en-mappen-delen-in-microsoft-365-business-72f26d6c-bf9e-432c-8b96-e3c2437f5b65?wt.mc_id=otc_onedrive"}, {"title": "Persoonlijk: Bestanden uploaden", "url": "https://support.microsoft.com/nl-nl/office/bestanden-en-mappen-uploaden-naar-onedrive-a5710114-6aeb-4bf5-a336-dffa7cc0b77a?wt.mc_id=otc_onedrive"}, {"title": "Persoonlijk: Wat is OneDrive?", "url": "https://support.microsoft.com/nl-nl/office/video-wat-is-onedrive-persoonlijk-a7707a86-7a07-4147-839a-40928b7f1d2c?wt.mc_id=otc_onedrive"}, {"title": "Persoonlijk: Uploaden in OneDrive", "url": "https://support.microsoft.com/nl-nl/office/bestanden-en-mappen-uploaden-naar-onedrive-7f630d4a-0af2-40f9-a32a-de5f149eb1de?wt.mc_id=otc_onedrive"}, {"title": "Persoonlijk: Bestanden delen", "url": "https://support.microsoft.com/nl-nl/office/bestanden-en-mappen-delen-in-onedrive-persoonlijk-3fcefa26-1371-401e-8c04-589de81ed5eb?wt.mc_id=otc_onedrive"}]}, {"name": "Windows", "color": "#0078d4", "count": 8, "links": [{"title": "Windows Support", "url": "https://support.microsoft.com/nl-nl/windows"}, {"title": "Startmenu", "url": "https://support.microsoft.com/nl-nl/search/results?query=Windows%2011%20startmenu"}, {"title": "Verkenner", "url": "https://support.microsoft.com/nl-nl/search/results?query=Windows%20verkenner"}, {"title": "Windows Update", "url": "https://support.microsoft.com/nl-nl/search/results?query=Windows%20Update"}, {"title": "Schermafbeelding maken", "url": "https://support.microsoft.com/nl-nl/search/results?query=Windows%20schermafbeelding"}, {"title": "Sneltoetsen", "url": "https://support.microsoft.com/nl-nl/search/results?query=Windows%20sneltoetsen"}, {"title": "Android-telefoon instellen", "url": "https://support.microsoft.com/nl-nl/office/video-uw-android-telefoon-of-tablet-instellen-641d280a-c05d-47a5-8f85-bc03b0d92a8a"}, {"title": "Gegevens veilig houden", "url": "https://support.microsoft.com/nl-nl/office/houd-uw-gegevens-veilig-87f64a1b-4019-41bb-aab9-c39ccf4de120"}]}];
+const stage = document.getElementById('stage');
+const homeBtn = document.getElementById('homeBtn');
+
+function iconSvg(name){
+  const map={
+    Word:`<svg viewBox="0 0 64 64"><rect x="10" y="8" width="44" height="48" rx="8" fill="#185ABD"/><path d="M18 20h5l3 16 4-13h4l4 13 3-16h5l-5 24h-5l-4-14-4 14h-5z" fill="white"/></svg>`,
+    Excel:`<svg viewBox="0 0 64 64"><rect x="10" y="8" width="44" height="48" rx="8" fill="#107C41"/><path d="M22 22h6l4 6 4-6h6l-7 10 7 10h-6l-4-6-4 6h-6l7-10z" fill="white"/></svg>`,
+    PowerPoint:`<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="24" fill="#D24726"/><path d="M24 18h12c7 0 11 4 11 10 0 7-5 11-12 11h-4v9h-7zm7 6v9h4c3 0 5-1 5-4s-2-5-5-5z" fill="white"/></svg>`,
+    Outlook:`<svg viewBox="0 0 64 64"><rect x="8" y="14" width="48" height="36" rx="8" fill="#0A64C9"/><path d="M16 22l16 12 16-12" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="32" r="8" fill="#084EA3"/><path d="M20 27h4a5 5 0 010 10h-4z" fill="white"/></svg>`,
+    Teams:`<svg viewBox="0 0 64 64"><rect x="10" y="16" width="30" height="32" rx="8" fill="#5B5FC7"/><circle cx="47" cy="24" r="7" fill="#7B83EB"/><circle cx="50" cy="40" r="8" fill="#7B83EB"/><path d="M19 24h18v6h-6v16h-6V30h-6z" fill="white"/></svg>`,
+    OneDrive:`<svg viewBox="0 0 64 64"><path d="M18 42c-6 0-10-4-10-9 0-5 4-9 9-9 1-8 8-14 17-14 8 0 14 4 17 11 5 1 9 5 9 10 0 6-5 11-12 11z" fill="#117BD3"/><path d="M22 43c-4 0-7-3-7-6 0-4 3-7 7-7 1-6 6-10 12-10 6 0 10 3 12 8 4 1 7 4 7 8 0 4-4 7-9 7z" fill="#4ea7ef"/></svg>`,
+    Windows:`<svg viewBox="0 0 64 64"><path d="M10 12l20-3v22H10zm24-3l20-3v25H34zM10 35h20v20l-20-3zm24 0h20v23l-20-3z" fill="#0078D4"/></svg>`
+  };
+  return map[name] || map.Windows;
+}
+function hexToRgba(hex,a){const h=hex.replace('#','');const n=parseInt(h,16);const r=(n>>16)&255,g=(n>>8)&255,b=n&255;return `rgba(${r},${g},${b},${a})`;}
+function bgStyle(color){return `background:linear-gradient(135deg, ${hexToRgba(color,.92)}, ${hexToRgba(color,.62)}), linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.08)); border:1px solid rgba(255,255,255,.18);`;}
+function ellipsePoint(cx,cy,rx,ry,i,total,start=-Math.PI/2){const ang=start + (Math.PI*2*i)/total; return {x:cx + Math.cos(ang)*rx, y:cy + Math.sin(ang)*ry};}
+function clearStage(){stage.innerHTML='';}
+function addOrbit(cx,cy,rx,ry){const d=document.createElement('div');d.className='orbit';d.style.width=(rx*2)+'px';d.style.height=(ry*2)+'px';d.style.left=cx+'px';d.style.top=cy+'px';stage.appendChild(d);return d;}
+function makeNode(tag, className, html, x, y, extraStyle=''){const el=document.createElement(tag);el.className=`node ${className} glass`;el.innerHTML=html;el.style.left=x+'px';el.style.top=y+'px';el.style.cssText += ';'+extraStyle;stage.appendChild(el);return el;}
+function appHtml(cat){return `<div class="icon-wrap">${iconSvg(cat.name)}</div><div class="label"><strong>${cat.name}</strong><span>${cat.count} links</span></div>`;}
+function linkHtml(title){return `<div class="link-text">${title}</div>`;}
+function calcLinkStyle(title){
+  const len = title.length;
+  let w = 90, h = 42, fs = 11.5;
+  if(len > 14) w = 98;
+  if(len > 20) { w = 106; h = 46; }
+  if(len > 28) { w = 114; h = 50; fs = 11; }
+  if(len > 38) { w = 122; h = 54; fs = 10.6; }
+  return `width:${w}px;height:${h}px;font-size:${fs}px;`;
+}
+function animateToDetail(cat, clickedItem){
+  const centerNode = stage.querySelector('.center');
+  const homeItems = Array.from(stage.querySelectorAll('.home-item'));
+  const orbits = Array.from(stage.querySelectorAll('.orbit'));
+  homeItems.forEach(item => {
+    if(item === clickedItem){
+      item.classList.add('move-center');
+      item.style.zIndex = '12';
+    } else {
+      item.classList.add('fade-away');
+    }
+  });
+  if(centerNode) centerNode.classList.add('fade-away');
+  orbits.forEach(o => o.classList.add('fade-away'));
+  setTimeout(() => renderDetail(cat), 430);
+}
+
+
+function renderHome(){
+  clearStage();
+  homeBtn.hidden=true;
+  const cx=500, cy=215;
+  addOrbit(cx,cy,372,154);
+  makeNode('div','center',`<div class="label"><strong>Keuzedeel K0022</strong><span>Digitale vaardigheden</span></div>`,cx,cy,'justify-content:center; text-align:center; width:280px; height:132px; background:linear-gradient(135deg, rgba(17,123,211,.45), rgba(91,95,199,.35));');
+  categories.forEach((cat,i)=>{
+    const p=ellipsePoint(cx,cy,372,154,i,categories.length);
+    const item=makeNode('button','home-item',appHtml(cat),p.x,p.y,bgStyle(cat.color));
+    item.type='button';
+    item.addEventListener('click',()=>animateToDetail(cat, item));
+  });
+}
+
+
+
+function renderDetail(cat){
+  clearStage();
+  homeBtn.hidden=false;
+  const cx=500, cy=215;
+  makeNode('div','center detail-in',appHtml(cat),cx,cy,bgStyle(cat.color)+'justify-content:center; text-align:center; width:250px; height:122px; animation-delay:0ms;');
+  const links=cat.links;
+
+  let rx = 398, ry = 164;
+  if(links.length >= 10) { rx = 406; ry = 168; }
+  if(links.length >= 14) { rx = 414; ry = 172; }
+  if(links.length >= 18) { rx = 420; ry = 176; }
+
+  const orbit = addOrbit(cx,cy,rx,ry);
+  orbit.classList.add('detail-in');
+
+  const startAngle = links.length >= 14 ? (-Math.PI / 2) + (Math.PI * 2 / links.length) / 2 : -Math.PI / 2;
+  links.forEach((link,i)=>{
+    const p = ellipsePoint(cx,cy,rx,ry,i,links.length,startAngle);
+    const a = makeNode('a','link-item detail-in',linkHtml(link.title),p.x,p.y,
+      'background:linear-gradient(135deg, rgba(255,255,255,.21), rgba(255,255,255,.1));'
+      + calcLinkStyle(link.title)
+      + `animation-delay:${70 + i*35}ms;`
+    );
+    a.href=link.url; a.target='_blank'; a.rel='noopener';
+  });
+}
+
+document.getElementById('homeBtn').addEventListener('click', renderHome);
+renderHome();
+</script>
 </body>
 </html>
